@@ -1,4 +1,4 @@
-![CI](https://github.com/insideapp-oss/sonar-flutter/workflows/CI/badge.svg)
+![CI](https://github.com/insideapp-fr/sonar-flutter/workflows/CI/badge.svg)
 
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=insideapp-oss_sonar-flutter&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=insideapp-oss_sonar-flutter)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=insideapp-oss_sonar-flutter&metric=coverage)](https://sonarcloud.io/summary/new_code?id=insideapp-oss_sonar-flutter)
@@ -30,9 +30,9 @@ The plugin is compatible with sonarQube 7.9+.
 
 ## Download
 
-Checkout the [Releases](https://github.com/insideapp-oss/sonar-flutter/releases) page.
+Checkout the [Releases](https://github.com/insideapp-fr/sonar-flutter/releases) page.
 
-Changelog is available [here](https://github.com/insideapp-oss/sonar-flutter/blob/develop/CHANGELOG.md).
+Changelog is available [here](https://github.com/insideapp-fr/sonar-flutter/blob/develop/CHANGELOG.md).
 
 ## Prerequisites
 
@@ -199,9 +199,9 @@ All options are configurable in the SonarQube UI, via `sonar-project.properties`
 
 Any help is welcome, and PRs will be greatly appreciated!
 
-Please read [CONTRIBUTING](https://github.com/insideapp-oss/sonar-flutter/blob/develop/CONTRIBUTING.md) for more information.
+Please read [CONTRIBUTING](https://github.com/insideapp-fr/sonar-flutter/blob/develop/CONTRIBUTING.md) for more information.
 
 
 ## License
 
-SonarQube Plugin for Flutter / Dart is released under the GNU LGPL v3 license. See the [LICENSE](https://github.com/insideapp-oss/sonar-flutter/blob/develop/LICENSE) file for more information.
+SonarQube Plugin for Flutter / Dart is released under the GNU LGPL v3 license. See the [LICENSE](https://github.com/insideapp-fr/sonar-flutter/blob/develop/LICENSE) file for more information.

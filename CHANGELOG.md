@@ -16,8 +16,8 @@
 
 #### Bug Fixes
 
-- [#187](https://github.com/insideapp-oss/sonar-flutter/issues/187) pubspec.yaml parser fails when no dependencies are declared
-- [#223](https://github.com/insideapp-oss/sonar-flutter/issues/223) some dartanalyzer rules disappeared
+- [#187](https://github.com/insideapp-fr/sonar-flutter/issues/187) pubspec.yaml parser fails when no dependencies are declared
+- [#223](https://github.com/insideapp-fr/sonar-flutter/issues/223) some dartanalyzer rules disappeared
 
 ## 0.5.1
 
@@ -35,9 +35,9 @@
 
 #### Bug Fixes
 
-- [#177](https://github.com/insideapp-oss/sonar-flutter/issues/177) analyzer execution fails when errors detected.
-- [#212](https://github.com/insideapp-oss/sonar-flutter/issues/212) source file not indexed with SonarQube 10.4+
-- [PR #201](https://github.com/insideapp-oss/sonar-flutter/pull/201) bump snakeyaml and jackson-databind to latest versions
+- [#177](https://github.com/insideapp-fr/sonar-flutter/issues/177) analyzer execution fails when errors detected.
+- [#212](https://github.com/insideapp-fr/sonar-flutter/issues/212) source file not indexed with SonarQube 10.4+
+- [PR #201](https://github.com/insideapp-fr/sonar-flutter/pull/201) bump snakeyaml and jackson-databind to latest versions
 - Updated Apache Ivy to 2.5.2
 
 ## 0.5.0
@@ -86,7 +86,7 @@
 
 #### Bug Fixes
 
-- [#160](https://github.com/insideapp-oss/sonar-flutter/issues/160) dart analysis with an exception of NumberFormatException
+- [#160](https://github.com/insideapp-fr/sonar-flutter/issues/160) dart analysis with an exception of NumberFormatException
 
 
 ## 0.4.0
@@ -165,9 +165,9 @@
 
 #### Enhancements
 
-- Add Flutter 1.20.0 test report compatibility (thanks to [Peter Leibiger](https://github.com/kuhnroyal)), fixes [#19](https://github.com/insideapp-oss/sonar-flutter/issues/19)
-- Improve test report parsing (thanks to [Peter Leibiger](https://github.com/kuhnroyal)), fixes [#13](https://github.com/insideapp-oss/sonar-flutter/issues/13)
-- Ability to use existing analysis options (configurable behavior) (thanks to [Stephane Janicaud](https://github.com/stephanecodes])), fixes [#23](https://github.com/insideapp-oss/sonar-flutter/issues/23), [#18](https://github.com/insideapp-oss/sonar-flutter/issues/18)
+- Add Flutter 1.20.0 test report compatibility (thanks to [Peter Leibiger](https://github.com/kuhnroyal)), fixes [#19](https://github.com/insideapp-fr/sonar-flutter/issues/19)
+- Improve test report parsing (thanks to [Peter Leibiger](https://github.com/kuhnroyal)), fixes [#13](https://github.com/insideapp-fr/sonar-flutter/issues/13)
+- Ability to use existing analysis options (configurable behavior) (thanks to [Stephane Janicaud](https://github.com/stephanecodes])), fixes [#23](https://github.com/insideapp-fr/sonar-flutter/issues/23), [#18](https://github.com/insideapp-fr/sonar-flutter/issues/18)
 - Paginated analysis with dartanalyzer (thanks to [victorgilc](https://github.com/victorgilc))
 
 #### Bug Fixes
@@ -176,8 +176,8 @@
 - Better test report parsing (thanks to [victorgilc](https://github.com/victorgilc))
 - Restore Java 8 compatibility required by the sonar-scanner (thanks to [Peter Leibiger](https://github.com/kuhnroyal))
 - Restore the original analysis options file when analysis crashes (thanks to [amond](https://github.com/amondnet))
-- Windows support (thanks to [victorgilc](https://github.com/victorgilc)), fixes [#12](https://github.com/insideapp-oss/sonar-flutter/issues/12), [#24](https://github.com/insideapp-oss/sonar-flutter/issues/24)
-- Running sonar-scanner does not result no 0 exit code anymore when issues are found by dartanalyzer (thanks to [amond](https://github.com/amondnet)), fixes [#11](https://github.com/insideapp-oss/sonar-flutter/issues/11)
+- Windows support (thanks to [victorgilc](https://github.com/victorgilc)), fixes [#12](https://github.com/insideapp-fr/sonar-flutter/issues/12), [#24](https://github.com/insideapp-fr/sonar-flutter/issues/24)
+- Running sonar-scanner does not result no 0 exit code anymore when issues are found by dartanalyzer (thanks to [amond](https://github.com/amondnet)), fixes [#11](https://github.com/insideapp-fr/sonar-flutter/issues/11)
 
 ## 0.2.1
 
