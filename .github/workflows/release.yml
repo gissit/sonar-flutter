@@ -32,16 +32,9 @@ jobs:
       - name: Build
         run: mvn -B package --file pom.xml
 
-      - name: Analyze
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.login=$SONAR_TOKEN \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=insideapp-oss \
-          -Dsonar.projectKey=insideapp-oss_sonar-flutter
+      # The upstream workflow analyzed against insideapp-oss's SonarCloud here.
+      # Secrets do not follow a fork, so that step failed before the upload and
+      # took the release with it. This fork releases without analyzing itself.
 
       - name: Upload release
         uses: svenstaro/upload-release-action@v2
