@@ -18,8 +18,8 @@
 package fr.insideapp.sonarqube.dart.lang.issues.dartanalyzer;
 
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.sensor.issue.NewIssue;
 import org.sonar.api.batch.sensor.issue.NewIssueLocation;
-import org.sonar.api.batch.sensor.issue.internal.DefaultIssueLocation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -97,8 +97,15 @@ public class DartAnalyzerReportIssue {
 
     @Nonnull
     @ParametersAreNonnullByDefault
-    public NewIssueLocation toNewIssueLocationFor(final InputFile inputFile) {
-        final NewIssueLocation location = new DefaultIssueLocation().on(inputFile).message(message);
+    public NewIssueLocation toNewIssueLocationFor(final NewIssue newIssue, final InputFile inputFile) {
+        // The issue itself is the factory for its locations. Instantiating
+        // DefaultIssueLocation directly reached into org.sonar.api...internal,
+        // which SonarQube removed from the scanner classpath: every analysis
+        // died with NoClassDefFoundError at the very last step, after the
+        // issues had already been computed. newLocation() is the public
+        // equivalent and exists all the way back to the API this plugin
+        // compiles against.
+        final NewIssueLocation location = newIssue.newLocation().on(inputFile).message(message);
         if (colNumber != null) {
             // This is a machine readable issue with column and length information
             // In Dart columns are 1-based but in Sonar they are 0-based, so need to subtract 1
