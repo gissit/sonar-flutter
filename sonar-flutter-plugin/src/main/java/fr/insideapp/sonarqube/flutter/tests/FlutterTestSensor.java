@@ -49,7 +49,14 @@ public class FlutterTestSensor implements Sensor {
 
         FlutterTestReportParser parser = new FlutterTestReportParser();
         for (String reportPath : reportPaths(sensorContext)) {
-            File reportFile = new File(reportPath);
+            // Resolved against the project base directory, like the coverage
+            // sensor does. new File(relative) resolved against the scanner
+            // PROCESS's working directory, which only matches the project when
+            // sonar-scanner is launched from inside it — with
+            // sonar.projectBaseDir pointing elsewhere (a monorepo subfolder),
+            // the report silently came up "not found" and every test count
+            // stayed at zero.
+            File reportFile = sensorContext.fileSystem().resolvePath(reportPath);
             LOGGER.debug("Parsing test report: {}", reportPath);
             try {
                 List<FlutterUnitTestSuite> suites = parser.parse(reportFile);

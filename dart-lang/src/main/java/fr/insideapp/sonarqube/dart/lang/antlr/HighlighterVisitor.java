@@ -44,7 +44,13 @@ public class HighlighterVisitor implements ParseTreeItemVisitor {
         if (file == null) {
             return;
         }
-        final NewCpdTokens cpdTokens = context.newCpdTokens().onFile(file);
+        // The platform ignores duplication on test files and logs one warning
+        // per file while doing so. DartSensor runs this visitor on test files
+        // for highlighting only; submitting their CPD tokens anyway bought
+        // nothing but a wall of "Duplication reported for ... will be ignored"
+        // in every scan of a project with tests.
+        final boolean trackDuplication = file.type() == InputFile.Type.MAIN;
+        final NewCpdTokens cpdTokens = trackDuplication ? context.newCpdTokens().onFile(file) : null;
 
         final NewHighlighting newHighlightning = context.newHighlighting().onFile(file);
         final Token[] alltokens = antrlFile.getTokens();
@@ -66,7 +72,9 @@ public class HighlighterVisitor implements ParseTreeItemVisitor {
 
                 addHighlighting(newHighlightning, token, file, range);
 
-                addCpdToken(cpdTokens, file, token, range);
+                if (trackDuplication) {
+                    addCpdToken(cpdTokens, file, token, range);
+                }
 
             } catch (final Exception e) {
                 if (LOGGER.isDebugEnabled()) {
@@ -85,10 +93,12 @@ public class HighlighterVisitor implements ParseTreeItemVisitor {
             } catch (final Exception e) {
                 LOGGER.warn(format("Unexpected error saving highlightings on file %s", file.key()), e);
             }
-            try {
-                cpdTokens.save();
-            } catch (final Exception e) {
-                LOGGER.warn(format("Unexpected error saving cpd tokens on file %s", file.key()), e);
+            if (trackDuplication) {
+                try {
+                    cpdTokens.save();
+                } catch (final Exception e) {
+                    LOGGER.warn(format("Unexpected error saving cpd tokens on file %s", file.key()), e);
+                }
             }
         }
     }
