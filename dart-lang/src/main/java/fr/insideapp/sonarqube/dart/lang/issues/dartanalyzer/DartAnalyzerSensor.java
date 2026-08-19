@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static java.util.Arrays.asList;
 
@@ -87,13 +89,19 @@ public class DartAnalyzerSensor implements Sensor {
     }
 
     private void recordIssues(SensorContext sensorContext, List<DartAnalyzerReportIssue> issues) {
+        // The analyzer covers the whole project, the scan only what
+        // sonar.sources/sonar.tests index. Issues on the rest (integration
+        // tests, the injected analysis_options.yaml) are expected, so they are
+        // one summary at the end rather than a warning PER ISSUE — measured at
+        // over a hundred identical lines on a mid-sized Flutter app.
+        final Set<String> notIndexed = new TreeSet<>();
         issues.forEach(issue -> {
             File file = sensorContext.fileSystem().resolvePath(issue.getFilePath());
             LOGGER.debug("Recording issue for {}", file.getAbsolutePath());
 
             FilePredicate fp = sensorContext.fileSystem().predicates().hasAbsolutePath(file.getAbsolutePath());
             if (!sensorContext.fileSystem().hasFiles(fp)) {
-                LOGGER.warn("File not included in SonarQube {}", file.getAbsoluteFile());
+                notIndexed.add(file.getAbsolutePath());
             } else {
                 final InputFile inputFile = Objects.requireNonNull(sensorContext.fileSystem().inputFile(fp));
                 final NewIssue newIssue = sensorContext.newIssue()
@@ -103,5 +111,9 @@ public class DartAnalyzerSensor implements Sensor {
                         .save();
             }
         });
+        if (!notIndexed.isEmpty()) {
+            LOGGER.warn("Issues on {} file(s) not indexed by SonarQube were skipped: {}",
+                    notIndexed.size(), String.join(", ", notIndexed));
+        }
     }
 }

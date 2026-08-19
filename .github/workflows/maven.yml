@@ -26,16 +26,19 @@ jobs:
       - name: Build
         run: mvn -B package --file pom.xml
 
+      # The house's own SonarQube, not upstream's SonarCloud: secrets do not
+      # follow a fork, and the plugin might as well be analyzed by the server
+      # it exists to extend. SONAR_TOKEN and SONAR_HOST_URL are pushed by
+      # gissit.com/infra/github, same as every repo of the house.
       - name: Analyze
+        if: ${{ secrets.SONAR_TOKEN != '' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.login=$SONAR_TOKEN \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=insideapp-oss \
-          -Dsonar.projectKey=insideapp-oss_sonar-flutter
+          mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Dsonar.token=$SONAR_TOKEN \
+          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} \
+          -Dsonar.projectKey=gissit_sonar-flutter
 
       - name: Read version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_ENV
